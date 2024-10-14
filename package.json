@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "http-proxy": "^1.18.1"
+  },
+
+	"scripts": {
+    		"start": "node proxy.js",
+    		"build": "pkg proxy.js -t node14-win -c package.json"
+  	}
+   
+  
+}
