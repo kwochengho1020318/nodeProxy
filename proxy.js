@@ -5,7 +5,7 @@ var fs = require("fs");
 
 async function getConfig() {
   return new Promise((resolve, reject) => {
-    fs.readFile("./proxy_config.json", (err, data) => {
+    fs.readFile("./data.json", (err, data) => {
       if (err) {
         return reject(err);
       }
@@ -31,15 +31,15 @@ async function main() {
   const server = https.createServer(options,(req, res) => {
     req.headers["Referer"] = "https://www.google.com";
     // 將請求轉發到原目標
-    proxy.web(req, res, { target: pInfo.target, secure: false }, (e) => {
+    proxy.web(req, res, { target: pInfo.proxyserver.target, secure: false }, (e) => {
       console.error("Proxy error:", e);
       res.end("Something went wrong.");
     });
   },);
   
   // 設定代理伺服器監聽某個端口
-  server.listen(pInfo.port, () => {
-    console.log("Proxy server listening on port " + pInfo.port);
+  server.listen(pInfo.proxyserver.port, () => {
+    console.log("Proxy server listening on port " + pInfo.proxyserver.port);
   });
 }
 main();
